@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="https://github.com/Xziguoux/Xziguoux.github.io/atom.xml" rel="self"/>
+  <link href="https://xziguoux/Xziguoux.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/Xziguoux/Xziguoux.github.io/"/>
+  <link href="https://xziguoux/Xziguoux.github.io/"/>
   <updated>2023-11-26T12:07:07.733Z</updated>
-  <id>https://github.com/Xziguoux/Xziguoux.github.io/</id>
+  <id>https://xziguoux/Xziguoux.github.io/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Mo的blog上线了</title>
-    <link href="https://github.com/Xziguoux/Xziguoux.github.io/2023/11/26/hello-world/"/>
-    <id>https://github.com/Xziguoux/Xziguoux.github.io/2023/11/26/hello-world/</id>
+    <link href="https://xziguoux/Xziguoux.github.io/2023/11/26/hello-world/"/>
+    <id>https://xziguoux/Xziguoux.github.io/2023/11/26/hello-world/</id>
     <published>2023-11-26T12:07:07.733Z</published>
     <updated>2023-11-26T12:07:07.733Z</updated>
     
