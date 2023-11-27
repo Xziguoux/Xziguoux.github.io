@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="https://github.com/Xziguoux/Xziguoux.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://github.com/Xziguoux/Xziguoux.github.io/"/>
+  <updated>2023-11-26T12:07:07.733Z</updated>
+  <id>https://github.com/Xziguoux/Xziguoux.github.io/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mo的blog上线了</title>
+    <link href="https://github.com/Xziguoux/Xziguoux.github.io/2023/11/26/hello-world/"/>
+    <id>https://github.com/Xziguoux/Xziguoux.github.io/2023/11/26/hello-world/</id>
+    <published>2023-11-26T12:07:07.733Z</published>
+    <updated>2023-11-26T12:07:07.733Z</updated>
+    
+    <content type="html"><![CDATA[<p>嘻嘻倒腾了一天终于上线了，今后持续输出对日常学习以及生活体验探索</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;嘻嘻倒腾了一天终于上线了，今后持续输出对日常学习以及生活体验探索&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
