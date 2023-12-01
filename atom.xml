@@ -6,7 +6,7 @@
   <link href="https://xziguoux.github.io/Xziguoux.github.io/atom.xml" rel="self"/>
   
   <link href="https://xziguoux.github.io/Xziguoux.github.io/"/>
-  <updated>2023-11-30T14:03:48.894Z</updated>
+  <updated>2023-11-29T15:04:51.236Z</updated>
   <id>https://xziguoux.github.io/Xziguoux.github.io/</id>
   
   <author>
@@ -15,35 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>NMS算法基础</title>
-    <link href="https://xziguoux.github.io/Xziguoux.github.io/2023/11/30/Non-Maximum-Suppression(NMS)/"/>
-    <id>https://xziguoux.github.io/Xziguoux.github.io/2023/11/30/Non-Maximum-Suppression(NMS)/</id>
-    <published>2023-11-30T14:03:55.690Z</published>
-    <updated>2023-11-30T14:03:48.894Z</updated>
-    
-    <content type="html"><![CDATA[<p>NMS将分成以下几篇进行讨论：</p><ul><li>NMS算法基本描述</li><li>NMS算法代码实现以及性能分析与优化</li><li>NMS不同框架支持以及性能调研</li><li>NMS不同加速平台支持以及性能<br>本节只讲述基本算法描述.</li></ul><h1 id="1-NMS算法背景"><a href="#1-NMS算法背景" class="headerlink" title="1. NMS算法背景"></a>1. NMS算法背景</h1><p>[NMS]为非极大值抑制，在目标检测任务中主要对检测结果进行处理，使得结果中一个对象尽可能得到一个检测结果，过程如图1所示：<br><img src="https://moxiaozi-bucket.oss-cn-shanghai.aliyuncs.com/pics/nms/nms_algo_eff.png" alt="抑制效果"><br>可以看出通过NMS，可以抑制掉过多重复结果。</p><h1 id="2-单类别NMS算法描述"><a href="#2-单类别NMS算法描述" class="headerlink" title="2. 单类别NMS算法描述"></a>2. 单类别NMS算法描述</h1><p>首先针对单类别NMS进行描述，基本算法如下所示：<br><img src="https://moxiaozi-bucket.oss-cn-shanghai.aliyuncs.com/pics/nms/nms_algo.png" alt="nms算法描述"><br>上述算法简单描述如下：</p><ol><li>对于Box的置信度进行排序，选取最大值</li><li>获取当前做大值box位置，并加入输出集合，同时从已有box中删去当前最大box</li><li>对于当前box，计算其与剩余box的iou指标，当iou大于设定阈值，则对其进行抑制</li><li>重复上述过程，遍历所有box, 最后输出保留box</li></ol><p>整个过程如下图示意：<br><img src="https://moxiaozi-bucket.oss-cn-shanghai.aliyuncs.com/pics/nms/nms_flow.png" alt="执行流程"></p><p>其中 IoU计算指标为交并比，即两个box相交面积比上面积的并集，可以通过下图进行表示 [IoU]<br><img src="https://moxiaozi-bucket.oss-cn-shanghai.aliyuncs.com/pics/nms/vis_iou.jpg" alt="IoU计算示意图"><br>其计算逻辑如下图所示：<br><img src="https://moxiaozi-bucket.oss-cn-shanghai.aliyuncs.com/pics/nms/vis_inter_area.png" alt="交集示意图"></p><h1 id="3-多类别NMS处理"><a href="#3-多类别NMS处理" class="headerlink" title="3. 多类别NMS处理"></a>3. 多类别NMS处理</h1><p>上面讲述了单个类别的抑制过程，对于多个类别，则是通独立运行NMS，每次针对单个类型进行输出。</p><h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>本文中主要讲述NMS算法基本描述，以及其IoU计算过程, 后续将结合算法进行代码实现以及性能分析优化</p><p>[1] <a href="https://ayameyao.github.io/NMS/Chapter1/4singleboj.html">https://ayameyao.github.io/NMS/Chapter1/4singleboj.html</a><br>[2] <a href="https://machinelearningspace.com/intersection-over-union-iou-a-comprehensive-guide/">https://machinelearningspace.com/intersection-over-union-iou-a-comprehensive-guide/</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;NMS将分成以下几篇进行讨论：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;NMS算法基本描述&lt;/li&gt;
-&lt;li&gt;NMS算法代码实现以及性能分析与优化&lt;/li&gt;
-&lt;li&gt;NMS不同框架支持以及性能调研&lt;/li&gt;
-&lt;li&gt;NMS不同加速平台支持以及性能&lt;br&gt;本节只讲述基本算法描述.&lt;/li&gt;</summary>
-      
-    
-    
-    
-    <category term="alog" scheme="https://xziguoux.github.io/Xziguoux.github.io/categories/alog/"/>
-    
-    
-    <category term="NMS" scheme="https://xziguoux.github.io/Xziguoux.github.io/tags/NMS/"/>
-    
-  </entry>
   
   <entry>
     <title>Mo的blog上线了</title>
