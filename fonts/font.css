@@ -1,8 +1,5 @@
 @font-face{
     font-family: 'LX';
     font-display: swap;
-    src: url('LXGWWenKaiMono-Light.ttf') format("truetype");
-}
-body {
-font-family: "LX"
+    src: url('/fonts/LXGWWenKaiMono-Light.ttf') format("truetype");
 }
