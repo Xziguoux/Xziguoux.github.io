@@ -1,0 +1,31 @@
+baseURL = 'https://xziguoux.github.io/blog/'
+languageCode = 'zh-cn'
+title = '我的博客'
+theme = 'archie'
+
+# 主题配置
+[params]
+    mode="auto"
+    useCDN=true
+    subtitle = "个人博客"
+    
+    # 社交媒体链接
+    social = [
+        {name = "GitHub", type = "social", url = "https://github.com/xziguoux"},
+        {name = "Twitter", type = "social", url = "https://twitter.com/xziguoux"}
+    ]
+
+[[menu.main]]
+name = "首页"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "文章"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "关于"
+url = "/about"
+weight = 3
