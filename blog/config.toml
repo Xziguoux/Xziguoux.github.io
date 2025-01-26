@@ -1,4 +1,4 @@
-baseURL = 'https://xziguoux.github.io/blog/'
+baseURL = 'https://moxiaozi.com'  # 注意不要加末尾的斜杠
 languageCode = 'zh-cn'
 title = '我的博客'
 theme = 'archie'
