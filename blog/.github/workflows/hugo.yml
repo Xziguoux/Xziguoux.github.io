@@ -25,7 +25,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-          fetch-depth: 0
           
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -36,11 +35,18 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build
+      - name: Debug Info
         working-directory: blog
         run: |
-          hugo --minify --debug
-          ls -la public
+          pwd
+          ls -la
+          echo "=== Checking themes ==="
+          ls -la themes/
+          echo "=== Building site ==="
+          hugo --minify
+          echo "=== Checking public directory ==="
+          ls -la public/
+          echo "=== Checking index.html ==="
           cat public/index.html || echo "index.html not found"
 
       - name: Upload artifact
