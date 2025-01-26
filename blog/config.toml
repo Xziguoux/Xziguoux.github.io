@@ -9,7 +9,8 @@ relativeURLs = false
 
 # 主题配置
 [params]
-    mode="auto"
+    # mode="auto"
+    mode="dark"
     useCDN=true
     subtitle = "个人博客"
     
