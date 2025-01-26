@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+          fetch-depth: 0
           
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -38,8 +39,9 @@ jobs:
       - name: Build
         working-directory: blog
         run: |
-          echo "HUGO_BASEURL=https://moxiaozi.com" >> $GITHUB_ENV
-          hugo --minify
+          hugo --minify --debug
+          ls -la public
+          cat public/index.html || echo "index.html not found"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2

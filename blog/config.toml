@@ -3,6 +3,10 @@ languageCode = 'zh-cn'
 title = '我的博客'
 theme = 'archie'
 
+# 确保生成 index.html
+uglyURLs = false
+relativeURLs = false
+
 # 主题配置
 [params]
     mode="auto"
