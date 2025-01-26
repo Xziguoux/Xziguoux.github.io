@@ -2,9 +2,7 @@ name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches: ["main"]
-    paths:
-      - 'blog/**'  # 只有 blog 目录发生变化时才触发
+    branches: ["master"]
   workflow_dispatch:
 
 permissions:
@@ -16,19 +14,18 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-defaults:
-  run:
-    shell: bash
-    working-directory: blog  # 设置工作目录为 blog
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: true
+          fetch-depth: 0
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
           
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -36,13 +33,15 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build with Hugo
-        run: hugo --minify
+      - name: Build
+        working-directory: blog
+        run: |
+          hugo --minify --baseURL "https://xziguoux.github.io/blog/"
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: blog/public
+          path: ./blog/public
 
   deploy:
     environment:
@@ -53,4 +52,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3
