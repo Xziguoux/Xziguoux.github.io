@@ -1,3 +1,4 @@
+{{ if .Site.Params.busuanzi }}
 <footer>
   <!-- 社交媒体图标 -->
   <div class="footer-social">
@@ -9,14 +10,14 @@
     {{- end -}}
     {{- end -}}
   </div>
-
+  
   <!-- 统计信息 -->
   <div class="site-stats">
-    <span class="site-pv">
+    <span id="busuanzi_container_site_pv" style="display: inline;">
       总访问量 <span id="busuanzi_value_site_pv"></span>
     </span>
     <span class="divider">|</span>
-    <span class="site-uv">
+    <span id="busuanzi_container_site_uv" style="display: inline;">
       访客数 <span id="busuanzi_value_site_uv"></span>
     </span>
   </div>
@@ -30,6 +31,8 @@
     <span>Built with <a href="https://gohugo.io">Hugo</a></span>
   </div>
 </footer>
+
 {{ if not hugo.IsServer }}
 {{ template "_internal/google_analytics.html" . }}
+{{ end }}
 {{ end }}
