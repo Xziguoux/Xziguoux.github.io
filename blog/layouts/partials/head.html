@@ -1,0 +1,57 @@
+{{- define "feathericon" -}}
+  {{- $featherURL := "https://unpkg.com/feather-icons@4.29.2/dist/feather-sprite.svg" -}}
+  {{ if not (.UseCDN | default false) -}}
+    {{- $featherURL = (resources.Get "svg/feather-sprite.svg" | fingerprint).RelPermalink -}}
+  {{- end -}}
+<svg class="feather">
+   <use href="{{ printf "%s#%s" $featherURL .Icon }}" />
+</svg>
+{{- end -}}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    
+    {{ if .Site.Params.useCDN }}
+    <link rel="stylesheet" href="https://unpkg.com/feather-icons@4.29.2/dist/feather.css">
+    {{ end }}
+    
+    {{ if or .Params.math .Site.Params.math }}
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
+    {{ end }}
+    
+    <!-- 不蒜子统计 -->
+    {{ if .Site.Params.busuanzi }}
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    {{ end }}
+</head>
+
+<header>
+	<div class="main">
+		<a href="{{ absLangURL "/" }}">{{ .Site.Title }}</a>
+	</div>
+	<nav>
+		{{ range .Site.Menus.main }}
+		<a href="{{ .URL }}">{{ .Name }}</a>
+		{{ end }}
+		{{ if eq .Site.Params.mode "toggle" -}}
+	| <span id="dark-mode-toggle" onclick="toggleTheme()">{{template "feathericon" (dict "UseCDN" .Site.Params.useCDN "Icon" "sun") }}</span>
+		<script src="{{ absURL "js/themetoggle.js" }}"></script>
+		{{ end }}
+	</nav>
+</header>

@@ -1,0 +1,89 @@
+{{ define "main" }}
+<main>
+  <article>
+    <div class="post-container">
+      <!-- Main Content -->
+      <div class="post-content">
+        <header class="post-header">
+          <h1 class="post-title">{{ .Title }}</h1>
+          <div class="post-meta">
+            {{ if .Date }}
+            <time>发布于: {{ .Date.Format "2006-01-02" }}</time>
+            {{ end }}
+            
+            {{ if .GitInfo }}
+            <time>· 最后修改: {{ .GitInfo.AuthorDate.Format "2006-01-02" }}</time>
+            {{ end }}
+            
+            {{ if .Site.Params.showReadingTime }}
+            <span class="reading-time">
+              · 预计阅读: {{ .ReadingTime }} 分钟
+            </span>
+            {{ end }}
+            
+            {{ if .Site.Params.goatcounter }}
+            <span class="post-views">
+              · 阅读量: <span id="views"></span>
+            </span>
+            {{ end }}
+            
+            {{ with .Params.tags }}
+            <div class="tags">
+              {{ range . }}
+              <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </header>
+        
+        {{ if isset .Params "tldr" }}
+        <div class="tldr">
+          <strong>tl;dr:</strong>
+          {{ .Params.tldr }}
+        </div>
+        {{ end }}
+        
+        <section class="body">
+          {{ .Content }}
+        </section>
+        
+        <div class="post-tags">
+          {{ if ne .Type "page" }}
+          {{ if gt .Params.tags 0 }}
+          <nav class="nav tags">
+            <ul class="tags">
+              {{ range .Params.tags }}
+              <li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+              {{ end }}
+            </ul>
+          </nav>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- TOC -->
+      {{ if isset .Params "toc" }}
+      <div class="toc">
+        <strong>目录:</strong>
+        {{ .TableOfContents }}
+      </div>
+      {{ end }}
+    </div>
+  </article>
+</main>
+
+{{ if .Site.Params.goatcounter }}
+<script>
+  if (typeof goatcounter !== 'undefined') {
+    setInterval(function() {
+      const el = document.getElementById('views')
+      if (el && goatcounter && goatcounter.count && goatcounter.count.visits) {
+        el.textContent = goatcounter.count.visits
+      }
+    }, 1000)
+  }
+</script>
+{{ end }}
+{{ end }} 

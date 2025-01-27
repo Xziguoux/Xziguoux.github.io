@@ -1,0 +1,35 @@
+<footer>
+  <!-- 社交媒体图标 -->
+  <div class="footer-social">
+    {{- range $index, $key := .Site.Params.Social -}}
+    {{- if hasPrefix $key.icon "simple:" -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}"><i class="si si-{{ substr $key.icon 7 }}"></i></a>
+    {{- else -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}">{{ template "feathericon" (dict "Icon" $key.icon "UseCDN" .Site.Params.useCDN) }}</a>
+    {{- end -}}
+    {{- end -}}
+  </div>
+
+  <!-- 统计信息 -->
+  <div class="site-stats">
+    <span class="site-pv">
+      总访问量 <span id="busuanzi_value_site_pv"></span>
+    </span>
+    <span class="divider">|</span>
+    <span class="site-uv">
+      访客数 <span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+
+  <!-- 版权信息 -->
+  <div class="footer-info">
+    <span>© {{ dateFormat "2006" now }} {{ .Site.Params.author }}</span>
+    <span class="divider">|</span>
+    <a href="https://github.com/athul/archie">Archie Theme</a>
+    <span class="divider">|</span>
+    <span>Built with <a href="https://gohugo.io">Hugo</a></span>
+  </div>
+</footer>
+{{ if not hugo.IsServer }}
+{{ template "_internal/google_analytics.html" . }}
+{{ end }}

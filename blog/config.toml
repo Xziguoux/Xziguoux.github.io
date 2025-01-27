@@ -3,6 +3,14 @@ languageCode = 'zh-cn'
 title = '我的博客'
 theme = 'archie'
 
+# 启用 Git 信息
+enableGitInfo = true
+
+# 时间格式设置
+enableEmoji = true
+hasCJKLanguage = true # 启用中文字数统计
+defaultContentLanguage = "zh-cn"
+
 pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
@@ -19,6 +27,22 @@ relativeURLs = false
     subtitle = "个人博客"
     copyright = "© moxiaozi"
     author = "moxiaozi"  # 作者名称
+    
+    # 启用数学公式
+    math = true
+    katex = true
+    
+    # 访问统计配置
+    busuanzi = true    # 启用不蒜子统计
+    
+    # 显示文章阅读时间
+    showReadingTime = true
+    
+    # 时间显示配置
+    dateform        = "Jan 2, 2006"
+    dateformShort   = "Jan 2"
+    dateformNum     = "2006-01-02"
+    dateformNumTime = "2006-01-02 15:04"
     
 [[params.social]]
 name = "GitHub"
@@ -51,3 +75,11 @@ weight = 4
     startLevel = 1    # 从一级标题开始显示
     endLevel = 6      # 到六级标题结束
     ordered = false   # 使用无序列表
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # 允许 HTML 标签
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "monokai"

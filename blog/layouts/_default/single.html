@@ -1,0 +1,69 @@
+{{ define "main" }}
+<main>
+  <article>
+    <div class="post-container">
+      <!-- Main Content -->
+      <div class="post-content">
+        <header class="post-header">
+          <h1 class="post-title">{{ .Title }}</h1>
+          <div class="post-meta">
+            {{ if .Date }}
+            <time>{{ .Date.Format "2006-01-02" }}</time>
+            {{ end }}
+            <span class="post-views">
+              阅读量 <span id="busuanzi_value_page_pv"></span>
+            </span>
+            {{ with .Params.tags }}
+            <div class="tags">
+              {{ range . }}
+              <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </header>
+        {{ if isset .Params "tldr" }}
+        <div class="tldr">
+          <strong>tl;dr:</strong>
+          {{ .Params.tldr }}
+        </div>{{ end }}
+        <section class="body">
+          {{ .Content }}
+        </section>
+        <div class="post-tags">
+          {{ if ne .Type "page" }}
+          {{ if gt .Params.tags 0 }}
+          <nav class="nav tags">
+            <ul class="tags">
+              {{ range .Params.tags }}
+              <li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+              {{ end }}
+            </ul>
+          </nav>
+          {{ end }}
+          {{ end }}
+        </div>
+        {{ partial "post-copyright.html" . }}
+      </div>
+
+      <!-- TOC -->
+      {{ if isset .Params "toc" }}
+      <div class="toc">
+        <strong>Table of contents:</strong>
+        {{ .TableOfContents }}
+      </div>
+      {{ end }}
+    </div>
+
+    <!-- Disqus -->
+    {{- $.Scratch.Set "isDisqus" true -}}
+    {{ if not .Site.Config.Services.Disqus.Shortname }}
+    {{- $.Scratch.Set "isDisqus" false -}}
+    {{ end }}
+
+    {{- if eq ($.Scratch.Get "isDisqus") true -}}
+    {{- partial "disqus.html" . -}}
+    {{- end -}}
+  </article>
+</main>
+{{ end }}
