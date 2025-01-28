@@ -43,7 +43,10 @@ relativeURLs = false
     dateformShort   = "Jan 2"
     dateformNum     = "2006-01-02"
     dateformNumTime = "2006-01-02 15:04"
-    
+
+    # 自定义 CSS 和 JS
+    customCSS = ["css/custom.css"]
+
 [[params.social]]
 name = "GitHub"
 icon = "github"

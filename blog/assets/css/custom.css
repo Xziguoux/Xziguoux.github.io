@@ -2,7 +2,8 @@
 @font-face {
     font-family: 'LXGW WenKai';
     font-display: swap;
-    src: url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Regular.ttf') format('truetype');
+    src: local('LXGW WenKai'),
+         url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -10,7 +11,8 @@
 @font-face {
     font-family: 'LXGW WenKai';
     font-display: swap;
-    src: url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Bold.ttf') format('truetype');
+    src: local('LXGW WenKai Bold'),
+         url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
@@ -19,7 +21,8 @@
 @font-face {
     font-family: 'Fira Code';
     font-display: swap;
-    src: url('/fonts/woff2/FiraCode-Regular.woff2') format('woff2'),
+    src: local('Fira Code'),
+         url('/fonts/woff2/FiraCode-Regular.woff2') format('woff2'),
          url('/fonts/woff/FiraCode-Regular.woff') format('woff'),
          url('/fonts/ttf/FiraCode-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -29,34 +32,24 @@
 @font-face {
     font-family: 'Fira Code';
     font-display: swap;
-    src: url('/fonts/woff2/FiraCode-Medium.woff2') format('woff2'),
+    src: local('Fira Code Medium'),
+         url('/fonts/woff2/FiraCode-Medium.woff2') format('woff2'),
          url('/fonts/woff/FiraCode-Medium.woff') format('woff'),
          url('/fonts/ttf/FiraCode-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
-/* 主容器设置 */
-.main {
-    max-width: 1200px;      /* 最大宽度，防止在大屏幕上过宽 */
-    width: 90%;             /* 容器宽度占浏览器窗口的90% */
-    margin: 0 auto;         /* 居中显示 */
-    padding: 0 20px;        /* 左右内边距，防止内容贴边 */
-}
-
 /* 全局字体设置 */
 body {
     font-family: 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 /* 代码字体设置 */
 pre, code {
-    font-family: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
-    font-size: 0.95em;
+    font-family: 'Fira Code', Consolas, Monaco, 'Courier New', monospace !important;
     font-feature-settings: "liga" 1, "calt" 1; /* 启用连字特性 */
 }
 
@@ -64,28 +57,15 @@ pre, code {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'LXGW WenKai', sans-serif;
     font-weight: bold;
-    line-height: 1.5;
-}
-
-/* 文章内容字体大小 */
-.post-content {
-    font-size: 1.05em;
-    line-height: 1.8;
 }
 
 /* 代码块样式优化 */
 .highlight {
-    margin: 1.5em 0;
-    padding: 1em;
     border-radius: 4px;
-    background: #2d2d2d;
 }
 
 .highlight pre {
-    margin: 0;
-    padding: 0;
     background: transparent;
-    line-height: 1.5;
 }
 
 /* 行内代码样式 */
@@ -94,7 +74,6 @@ code:not([class]) {
     padding: 0.2em 0.4em;
     margin: 0;
     font-size: 0.9em;
-    background: rgba(175, 184, 193, 0.2);
     border-radius: 3px;
 }
 
@@ -107,218 +86,4 @@ code:not([class]) {
     pre, code {
         font-size: 14px;
     }
-    
-    .post-content {
-        font-size: 1em;
-    }
-}
-
-/* 文章内容区域设置 */
-.post-content {
-    width: 100%;           /* 内容区域占满容器宽度 */
-    margin: 0 auto;        /* 居中显示 */
-    line-height: 1.6;      /* 行高，提高可读性 */
-}
-
-/* 移动设备自适应 */
-@media screen and (max-width: 768px) {
-    .main {
-        width: 95%;        /* 在手机上使用更大的宽度比例 */
-        padding: 0 10px;   /* 减小内边距 */
-    }
-}
-
-/* 平板设备自适应 */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    .main {
-        width: 90%;
-        max-width: 900px;
-    }
-}
-
-/* 大屏幕设备自适应 */
-@media screen and (min-width: 1025px) {
-    .main {
-        width: 85%;
-        max-width: 1200px;
-    }
-}
-
-/* 图片自适应 */
-.post-content img {
-    max-width: 100%;      /* 图片最大宽度不超过容器 */
-    height: auto;         /* 高度自动调整，保持比例 */
-    display: block;       /* 块级显示 */
-    margin: 1em auto;     /* 上下边距和居中 */
-}
-
-/* 代码块自适应 */
-pre {
-    max-width: 100%;      /* 最大宽度不超过容器 */
-    overflow-x: auto;     /* 超出宽度时显示滚动条 */
-    padding: 1em;         /* 内边距 */
-}
-
-/* 表格自适应 */
-table {
-    width: 100%;          /* 宽度占满 */
-    overflow-x: auto;     /* 超出时横向滚动 */
-    display: block;       /* 块级显示 */
-    margin: 1em 0;       /* 上下边距 */
-}
-
-/* 调整不同设备上的响应式宽度 */
-@media (min-width: 1920px) {
-    .main {
-        max-width: 1400px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .main {
-        width: 95%;
-    }
-}
-
-/* 调整文章中图片的最大宽度 */
-.post-content img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* 调整表格宽度 */
-table {
-    width: 100%;
-    overflow-x: auto;
-    display: block;
-}
-
-/* 顶部目录样式 */
-.toc-top {
-    background: #2d2d2d;    /* 深色主题背景 */
-    padding: 20px;
-    margin: 20px 0 40px 0;
-    border-radius: 5px;
-    border: 1px solid #3d3d3d;
-    color: #e0e0e0;         /* 浅色文字 */
-}
-
-/* 目录链接样式 */
-.toc-top a {
-    color: #9ee79e;         /* 醒目的链接颜色 */
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.toc-top a:hover {
-    color: #4caf50;         /* 悬停时的颜色 */
-    text-decoration: underline;
-}
-
-/* 目录标题样式 */
-.toc-top h2 {
-    color: #ffffff;         /* 白色标题 */
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-}
-
-/* 目录列表样式 */
-.toc-top ul {
-    padding-left: 20px;
-    margin: 0;
-    list-style-type: none;  /* 移除默认列表样式 */
-}
-
-.toc-top li {
-    margin: 8px 0;
-    line-height: 1.4;
-}
-
-/* 目录项前的小圆点 */
-.toc-top li::before {
-    content: "•";
-    color: #4caf50;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-}
-
-/* 导航栏容器 */
-header {
-    padding: 20px 0;
-    width: 100%;
-    background: #1d1e20;
-}
-
-/* 导航栏内容布局 */
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* 网站标题 */
-.site-title {
-    margin: 0;
-}
-
-.site-title a {
-    color: #4caf50;
-    text-decoration: none;
-    font-size: 1.5em;
-}
-
-/* 导航菜单 */
-.nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-.nav-item {
-    margin: 0;
-}
-
-.nav-link {
-    color: #9ee79e;
-    text-decoration: none;
-    padding: 5px 10px;
-    transition: color 0.2s;
-}
-
-.nav-link:hover {
-    color: #4caf50;
-}
-
-/* 确保导航栏在深色主题下可见 */
-[data-theme="dark"] .nav-link {
-    color: #9ee79e;
-}
-
-[data-theme="dark"] .nav-link:hover {
-    color: #4caf50;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-
-    .nav-list {
-        justify-content: center;
-    }
-}
-
-/* 调整主内容区域，防止被固定导航栏遮挡 */
-main {
-    margin-top: 80px;       /* 根据导航栏高度调整 */
 }
