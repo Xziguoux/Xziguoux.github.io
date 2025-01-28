@@ -11,7 +11,7 @@
             <time>{{ .Date.Format "2006-01-02" }}</time>
             {{ end }}
             <span id="busuanzi_container_page_pv" class="post-views">
-              阅读量 <span id="busuanzi_value_page_pv"></span>
+              阅读量 <span id="busuanzi_value_page_pv">0</span>
             </span>
             {{ with .Params.tags }}
             <div class="tags">
@@ -66,4 +66,31 @@
     {{- end -}}
   </article>
 </main>
+
+<style>
+.post-views {
+  display: none;
+}
+#busuanzi_value_page_pv {
+  color: #666;
+  font-weight: bold;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 等待不蒜子脚本加载完成
+  var checkBusuanzi = setInterval(function() {
+    if (typeof busuanzi_value_page_pv !== 'undefined') {
+      document.querySelector('.post-views').style.display = 'inline';
+      clearInterval(checkBusuanzi);
+    }
+  }, 500);
+  
+  // 超时处理
+  setTimeout(function() {
+    clearInterval(checkBusuanzi);
+  }, 10000);
+});
+</script>
 {{ end }}

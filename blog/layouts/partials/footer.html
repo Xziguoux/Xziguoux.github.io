@@ -13,13 +13,21 @@
   
   <!-- 统计信息 -->
   <div class="site-stats">
-    <span id="busuanzi_container_site_pv" style="display: inline;">
-      总访问量 <span id="busuanzi_value_site_pv"></span>
-    </span>
-    <span class="divider">|</span>
-    <span id="busuanzi_container_site_uv" style="display: inline;">
-      访客数 <span id="busuanzi_value_site_uv"></span>
-    </span>
+    <div class="busuanzi-count">
+      <span class="site-pv">
+        总访问量
+        <span id="busuanzi_container_site_pv" style="display: none;">
+          <span id="busuanzi_value_site_pv">0</span>
+        </span>
+      </span>
+      <span class="divider">|</span>
+      <span class="site-uv">
+        访客数
+        <span id="busuanzi_container_site_uv" style="display: none;">
+          <span id="busuanzi_value_site_uv">0</span>
+        </span>
+      </span>
+    </div>
   </div>
 
   <!-- 版权信息 -->
@@ -31,6 +39,79 @@
     <span>Built with <a href="https://gohugo.io">Hugo</a></span>
   </div>
 </footer>
+
+<style>
+.site-stats {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.busuanzi-count {
+  display: inline-block;
+}
+
+.site-pv,
+.site-uv {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.divider {
+  color: #ddd;
+  margin: 0 0.5rem;
+}
+
+#busuanzi_value_site_pv,
+#busuanzi_value_site_uv {
+  color: #666;
+  font-weight: bold;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function loadBusuanzi() {
+    var script = document.createElement('script');
+    script.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    script.async = true;
+    
+    script.onload = function() {
+      // 脚本加载完成后，显示统计数据
+      setTimeout(function() {
+        var containers = document.querySelectorAll('#busuanzi_container_site_pv, #busuanzi_container_site_uv');
+        containers.forEach(function(container) {
+          container.style.display = 'inline';
+        });
+
+        // 本地开发环境显示测试数据
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          document.getElementById('busuanzi_value_site_pv').textContent = '测试中';
+          document.getElementById('busuanzi_value_site_uv').textContent = '测试中';
+        }
+      }, 1000);
+    };
+    
+    script.onerror = function() {
+      // 脚本加载失败时也显示测试数据
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        var containers = document.querySelectorAll('#busuanzi_container_site_pv, #busuanzi_container_site_uv');
+        containers.forEach(function(container) {
+          container.style.display = 'inline';
+        });
+        document.getElementById('busuanzi_value_site_pv').textContent = '测试中';
+        document.getElementById('busuanzi_value_site_uv').textContent = '测试中';
+      }
+    };
+    
+    document.body.appendChild(script);
+  }
+
+  // 检查并加载不蒜子脚本
+  if (typeof busuanzi_value_site_pv === 'undefined') {
+    loadBusuanzi();
+  }
+});
+</script>
 
 {{ if not hugo.IsServer }}
 {{ template "_internal/google_analytics.html" . }}
