@@ -1,6 +1,6 @@
 baseURL = 'https://moxiaozi.com'  # 注意不要加末尾的斜杠
 languageCode = 'zh-cn'
-title = '我的博客'
+title = "Mo's Blog"
 theme = 'archie'
 
 # 启用 Git 信息
@@ -24,7 +24,7 @@ relativeURLs = false
     mode="auto"
     # mode="dark"
     useCDN=true
-    subtitle = "个人博客"
+    subtitle = "山高自有客行路，水深自有渡船人"
     copyright = "© moxiaozi"
     author = "moxiaozi"  # 作者名称
     
