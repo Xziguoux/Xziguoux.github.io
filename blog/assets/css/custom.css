@@ -1,9 +1,116 @@
+/* 霞鹜文楷字体配置 */
+@font-face {
+    font-family: 'LXGW WenKai';
+    font-display: swap;
+    src: url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LXGW WenKai';
+    font-display: swap;
+    src: url('/fonts/lxgw-wenkai-v1.510/LXGWWenKai-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Fira Code 字体配置 */
+@font-face {
+    font-family: 'Fira Code';
+    font-display: swap;
+    src: url('/fonts/woff2/FiraCode-Regular.woff2') format('woff2'),
+         url('/fonts/woff/FiraCode-Regular.woff') format('woff'),
+         url('/fonts/ttf/FiraCode-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    font-display: swap;
+    src: url('/fonts/woff2/FiraCode-Medium.woff2') format('woff2'),
+         url('/fonts/woff/FiraCode-Medium.woff') format('woff'),
+         url('/fonts/ttf/FiraCode-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
 /* 主容器设置 */
 .main {
     max-width: 1200px;      /* 最大宽度，防止在大屏幕上过宽 */
     width: 90%;             /* 容器宽度占浏览器窗口的90% */
     margin: 0 auto;         /* 居中显示 */
     padding: 0 20px;        /* 左右内边距，防止内容贴边 */
+}
+
+/* 全局字体设置 */
+body {
+    font-family: 'LXGW WenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 代码字体设置 */
+pre, code {
+    font-family: 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
+    font-size: 0.95em;
+    font-feature-settings: "liga" 1, "calt" 1; /* 启用连字特性 */
+}
+
+/* 标题字体设置 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'LXGW WenKai', sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+/* 文章内容字体大小 */
+.post-content {
+    font-size: 1.05em;
+    line-height: 1.8;
+}
+
+/* 代码块样式优化 */
+.highlight {
+    margin: 1.5em 0;
+    padding: 1em;
+    border-radius: 4px;
+    background: #2d2d2d;
+}
+
+.highlight pre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    line-height: 1.5;
+}
+
+/* 行内代码样式 */
+code:not([class]) {
+    font-family: 'Fira Code', Consolas, Monaco, monospace;
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 0.9em;
+    background: rgba(175, 184, 193, 0.2);
+    border-radius: 3px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
+    pre, code {
+        font-size: 14px;
+    }
+    
+    .post-content {
+        font-size: 1em;
+    }
 }
 
 /* 文章内容区域设置 */
