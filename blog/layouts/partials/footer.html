@@ -14,12 +14,18 @@
   <!-- 统计信息 -->
   <div class="site-stats">
     <div class="busuanzi-count">
-      <span id="busuanzi_container_site_pv">
-        总访问量 <span id="busuanzi_value_site_pv">--</span>
+      <span class="site-pv">
+        总访问量 
+        <span id="busuanzi_container_site_pv" style="display: inline;">
+          <span id="busuanzi_value_site_pv">--</span>
+        </span>
       </span>
       <span class="divider">|</span>
-      <span id="busuanzi_container_site_uv">
-        访客数 <span id="busuanzi_value_site_uv">--</span>
+      <span class="site-uv">
+        访客数 
+        <span id="busuanzi_container_site_uv" style="display: inline;">
+          <span id="busuanzi_value_site_uv">--</span>
+        </span>
       </span>
     </div>
   </div>
@@ -43,11 +49,19 @@
 .busuanzi-count {
   display: inline-block;
   font-size: 0.9rem;
-  color: #666;
+  color: inherit;
+}
+
+.site-pv,
+.site-uv {
+  display: inline-block;
+  margin: 0 0.5rem;
+  color: inherit;
 }
 
 .divider {
-  color: #ddd;
+  color: inherit;
+  opacity: 0.5;
   margin: 0 0.5rem;
 }
 
@@ -55,89 +69,74 @@
 #busuanzi_value_site_uv {
   font-weight: bold;
   margin: 0 0.2rem;
-  transition: opacity 0.3s ease;
+  color: inherit;
 }
 
-.loading {
-  opacity: 0.5;
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .busuanzi-count,
+  .site-pv,
+  .site-uv,
+  #busuanzi_value_site_pv,
+  #busuanzi_value_site_uv {
+    color: inherit;
+  }
 }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var scriptLoaded = false;
-  var maxRetries = 3;
-  var retryCount = 0;
+(function() {
+  // 确保脚本只加载一次
+  if (window.busuanziInitialized) return;
+  window.busuanziInitialized = true;
 
-  // 初始化时添加加载状态
-  document.querySelectorAll('[id^="busuanzi_value"]').forEach(function(el) {
-    el.classList.add('loading');
-  });
+  function initBusuanzi() {
+    const script = document.createElement('script');
+    script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    script.async = true;
 
-  function updateStatistics() {
-    document.querySelectorAll('[id^="busuanzi_value"]').forEach(function(el) {
-      el.classList.remove('loading');
-      if (el.textContent === '') {
-        el.textContent = '--';
+    // 设置超时
+    const timeout = setTimeout(() => {
+      console.warn('Busuanzi script load timeout');
+      updateDisplay('--');
+    }, 5000);
+
+    script.onload = () => {
+      clearTimeout(timeout);
+      // 给不蒜子一点时间来更新数据
+      setTimeout(() => {
+        const pv = document.getElementById('busuanzi_value_site_pv');
+        const uv = document.getElementById('busuanzi_value_site_uv');
+        if (pv && pv.textContent === '') pv.textContent = '0';
+        if (uv && uv.textContent === '') uv.textContent = '0';
+      }, 500);
+    };
+
+    script.onerror = () => {
+      clearTimeout(timeout);
+      console.error('Failed to load Busuanzi script');
+      updateDisplay('--');
+    };
+
+    document.body.appendChild(script);
+  }
+
+  function updateDisplay(value) {
+    ['busuanzi_value_site_pv', 'busuanzi_value_site_uv'].forEach(id => {
+      const element = document.getElementById(id);
+      if (element && element.textContent === '') {
+        element.textContent = value;
       }
     });
   }
 
-  function loadBusuanzi() {
-    if (scriptLoaded || retryCount >= maxRetries) return;
-
-    var script = document.createElement('script');
-    script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
-    script.async = true;
-    
-    script.onload = function() {
-      scriptLoaded = true;
-      // 缩短延迟时间，添加过渡效果
-      setTimeout(updateStatistics, 200);
-    };
-    
-    script.onerror = function() {
-      retryCount++;
-      if (retryCount < maxRetries) {
-        setTimeout(loadBusuanzi, 1000); // 减少重试等待时间
-      } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        updateStatistics();
-        document.getElementById('busuanzi_value_site_pv').textContent = '测试中';
-        document.getElementById('busuanzi_value_site_uv').textContent = '测试中';
-      }
-    };
-    
-    document.body.appendChild(script);
+  // 在页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBusuanzi);
+  } else {
+    initBusuanzi();
   }
-
-  // 添加页面可见性检测
-  var hidden, visibilityChange;
-  if (typeof document.hidden !== "undefined") {
-    hidden = "hidden";
-    visibilityChange = "visibilitychange";
-  } else if (typeof document.msHidden !== "undefined") {
-    hidden = "msHidden";
-    visibilityChange = "msvisibilitychange";
-  } else if (typeof document.webkitHidden !== "undefined") {
-    hidden = "webkitHidden";
-    visibilityChange = "webkitvisibilitychange";
-  }
-
-  function handleVisibilityChange() {
-    if (!document[hidden] && !scriptLoaded) {
-      loadBusuanzi();
-    }
-  }
-
-  if (typeof document.addEventListener !== "undefined" && typeof hidden !== "undefined") {
-    document.addEventListener(visibilityChange, handleVisibilityChange, false);
-  }
-
-  // 初始加载
-  if (!document[hidden]) {
-    loadBusuanzi();
-  }
-});
+})();
 </script>
 
 {{ if not hugo.IsServer }}

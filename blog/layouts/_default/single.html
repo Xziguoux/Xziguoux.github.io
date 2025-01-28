@@ -10,8 +10,11 @@
             {{ if .Date }}
             <time>{{ .Date.Format "2006-01-02" }}</time>
             {{ end }}
-            <span id="busuanzi_container_page_pv" class="post-views">
-              阅读量 <span id="busuanzi_value_page_pv">0</span>
+            <span class="post-views">
+              阅读量 
+              <span id="busuanzi_container_page_pv" style="display: inline;">
+                <span id="busuanzi_value_page_pv">0</span>
+              </span>
             </span>
             {{ with .Params.tags }}
             <div class="tags">
@@ -69,28 +72,25 @@
 
 <style>
 .post-views {
-  display: none;
+  color: inherit;
+  margin: 0 1rem;
 }
+
+#busuanzi_container_page_pv {
+  display: inline !important;
+}
+
 #busuanzi_value_page_pv {
-  color: #666;
   font-weight: bold;
+  color: inherit;
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .post-views,
+  #busuanzi_value_page_pv {
+    color: inherit;
+  }
 }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 等待不蒜子脚本加载完成
-  var checkBusuanzi = setInterval(function() {
-    if (typeof busuanzi_value_page_pv !== 'undefined') {
-      document.querySelector('.post-views').style.display = 'inline';
-      clearInterval(checkBusuanzi);
-    }
-  }, 500);
-  
-  // 超时处理
-  setTimeout(function() {
-    clearInterval(checkBusuanzi);
-  }, 10000);
-});
-</script>
 {{ end }}
