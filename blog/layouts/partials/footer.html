@@ -14,18 +14,12 @@
   <!-- 统计信息 -->
   <div class="site-stats">
     <div class="busuanzi-count">
-      <span class="site-pv">
-        总访问量
-        <span id="busuanzi_container_site_pv" style="display: none;">
-          <span id="busuanzi_value_site_pv">0</span>
-        </span>
+      <span id="busuanzi_container_site_pv">
+        总访问量 <span id="busuanzi_value_site_pv">--</span>
       </span>
       <span class="divider">|</span>
-      <span class="site-uv">
-        访客数
-        <span id="busuanzi_container_site_uv" style="display: none;">
-          <span id="busuanzi_value_site_uv">0</span>
-        </span>
+      <span id="busuanzi_container_site_uv">
+        访客数 <span id="busuanzi_value_site_uv">--</span>
       </span>
     </div>
   </div>
@@ -48,12 +42,8 @@
 
 .busuanzi-count {
   display: inline-block;
-}
-
-.site-pv,
-.site-uv {
-  display: inline-block;
-  margin: 0 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 .divider {
@@ -63,41 +53,55 @@
 
 #busuanzi_value_site_pv,
 #busuanzi_value_site_uv {
-  color: #666;
   font-weight: bold;
+  margin: 0 0.2rem;
+  transition: opacity 0.3s ease;
+}
+
+.loading {
+  opacity: 0.5;
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  var scriptLoaded = false;
+  var maxRetries = 3;
+  var retryCount = 0;
+
+  // 初始化时添加加载状态
+  document.querySelectorAll('[id^="busuanzi_value"]').forEach(function(el) {
+    el.classList.add('loading');
+  });
+
+  function updateStatistics() {
+    document.querySelectorAll('[id^="busuanzi_value"]').forEach(function(el) {
+      el.classList.remove('loading');
+      if (el.textContent === '') {
+        el.textContent = '--';
+      }
+    });
+  }
+
   function loadBusuanzi() {
+    if (scriptLoaded || retryCount >= maxRetries) return;
+
     var script = document.createElement('script');
-    script.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
     script.async = true;
     
     script.onload = function() {
-      // 脚本加载完成后，显示统计数据
-      setTimeout(function() {
-        var containers = document.querySelectorAll('#busuanzi_container_site_pv, #busuanzi_container_site_uv');
-        containers.forEach(function(container) {
-          container.style.display = 'inline';
-        });
-
-        // 本地开发环境显示测试数据
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          document.getElementById('busuanzi_value_site_pv').textContent = '测试中';
-          document.getElementById('busuanzi_value_site_uv').textContent = '测试中';
-        }
-      }, 1000);
+      scriptLoaded = true;
+      // 缩短延迟时间，添加过渡效果
+      setTimeout(updateStatistics, 200);
     };
     
     script.onerror = function() {
-      // 脚本加载失败时也显示测试数据
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        var containers = document.querySelectorAll('#busuanzi_container_site_pv, #busuanzi_container_site_uv');
-        containers.forEach(function(container) {
-          container.style.display = 'inline';
-        });
+      retryCount++;
+      if (retryCount < maxRetries) {
+        setTimeout(loadBusuanzi, 1000); // 减少重试等待时间
+      } else if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        updateStatistics();
         document.getElementById('busuanzi_value_site_pv').textContent = '测试中';
         document.getElementById('busuanzi_value_site_uv').textContent = '测试中';
       }
@@ -106,8 +110,31 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(script);
   }
 
-  // 检查并加载不蒜子脚本
-  if (typeof busuanzi_value_site_pv === 'undefined') {
+  // 添加页面可见性检测
+  var hidden, visibilityChange;
+  if (typeof document.hidden !== "undefined") {
+    hidden = "hidden";
+    visibilityChange = "visibilitychange";
+  } else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
+  } else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
+  }
+
+  function handleVisibilityChange() {
+    if (!document[hidden] && !scriptLoaded) {
+      loadBusuanzi();
+    }
+  }
+
+  if (typeof document.addEventListener !== "undefined" && typeof hidden !== "undefined") {
+    document.addEventListener(visibilityChange, handleVisibilityChange, false);
+  }
+
+  // 初始加载
+  if (!document[hidden]) {
     loadBusuanzi();
   }
 });
