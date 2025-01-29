@@ -58,6 +58,9 @@
       {{ end }}
     </div>
 
+    <!-- 评论区 -->
+    {{ partial "comments.html" . }}
+
     <!-- Disqus -->
     {{- $.Scratch.Set "isDisqus" true -}}
     {{ if not .Site.Config.Services.Disqus.Shortname }}

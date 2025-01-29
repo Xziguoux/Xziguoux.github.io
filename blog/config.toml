@@ -47,6 +47,21 @@ relativeURLs = false
     # 自定义 CSS 和 JS
     customCSS = ["css/custom.css"]
 
+    # giscus 评论系统配置
+    comments = true
+    [params.giscus]
+        repo = "Xziguoux/Xziguoux.github.io"    
+        repoID = "R_kgDOKx3C8Q"                 
+        category = "Comments"                    # 改为新创建的 Comments 分类名
+        categoryID = "DIC_kwDOKx3C8c4Cmb2u"           # 需要替换为新创建的 Comments 分类的 ID
+        mapping = "pathname"               
+        strict = "0"                       
+        reactionsEnabled = "1"             
+        emitMetadata = "0"                 
+        inputPosition = "bottom"           
+        theme = "preferred_color_scheme"   
+        lang = "zh-CN"                     
+
 [[params.social]]
 name = "GitHub"
 icon = "github"

@@ -87,3 +87,15 @@ code:not([class]) {
         font-size: 14px;
     }
 }
+
+/* Giscus 评论区样式 */
+.giscus {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .giscus {
+    border-top: 1px solid #333;
+}
