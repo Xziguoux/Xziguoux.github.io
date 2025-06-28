@@ -15,14 +15,14 @@
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     
     {{ if .Site.Params.useCDN }}
-    <link rel="stylesheet" href="https://unpkg.com/feather-icons@4.29.2/dist/feather.css">
+    <link rel="stylesheet" href="{{ "vendor/feather.css" | absURL }}">
     {{ end }}
     
     {{ if or .Params.math .Site.Params.math }}
     <!-- KaTeX -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="{{ "vendor/katex.min.css" | absURL }}">
+    <script defer src="{{ "vendor/katex.min.js" | absURL }}"></script>
+    <script defer src="{{ "vendor/auto-render.min.js" | absURL }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
