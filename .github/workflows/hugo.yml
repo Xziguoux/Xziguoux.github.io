@@ -1,20 +1,23 @@
-name: Deploy Hugo site to Pages
+name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
     branches: ["master"]
   workflow_dispatch:
 
+# 全局权限，确保 upload / deploy 都有足够权限
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read   # 允许 checkout
+  pages: write     # 允许创建 / 更新 Pages 部署
+  id-token: write  # 用于 OIDC 登录（deploy-pages 需要）
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # checkout 代码
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: true
@@ -25,16 +28,15 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build Site
+      - name: Build site
         working-directory: blog
         run: |
           hugo --minify
+          echo "Built files in blog/public:"
           ls -la public/
 
       - name: Upload Pages artifact
-        # ❌ 一定不要用 actions/upload-artifact@v3
-        # ⬇️ 改成下面这行：
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: blog/public
           artifact_name: github-pages
@@ -44,6 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      # 部署完成后，环境面板会展现这个 URL
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       pages: write
@@ -51,7 +54,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifact_name: github-pages
