@@ -25,15 +25,15 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-      - name: Build and Debug
+      - name: Build Site
         working-directory: blog
         run: |
-          echo "Building site..."
           hugo --minify
-          echo "Output in blog/public:"
           ls -la public/
 
       - name: Upload Pages artifact
+        # ❌ 一定不要用 actions/upload-artifact@v3
+        # ⬇️ 改成下面这行：
         uses: actions/upload-pages-artifact@v1
         with:
           path: blog/public
